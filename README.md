@@ -1,79 +1,90 @@
-# languages
+# dsbaars-languages
 
 #### Table of Contents
 
 1. [Overview](#overview)
-2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with languages](#setup)
-    * [What languages affects](#what-languages-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with languages](#beginning-with-languages)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+2. [Module Description](#module-description)
+3. [Setup](#setup)
+4. [Usage](#usage)
+5. [Reference](#reference)
+6. [Limitations](#limitations)
+7. [Development](#development)
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+Installs programming languages and their tools commonly used by dsbaars, might be useful for others
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
+Installs and configures the following:
 
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
+- Oracle JDK 8 (and makes it default)
+- PHP 5 (CLI and FPM)
+- node.js
+- Python (and virtualenv)
 
 ## Setup
 
 ### What languages affects
 
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
+#### Java
 
-### Setup Requirements **OPTIONAL**
+- Adds PPA ppa:webupd8team/java
+- If `accept_license` is true:
+    - Installs oracle-java8-installer
+    - Installs oracle-java8-set-default to make Java 8 default
 
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
+#### node.js
 
-### Beginning with languages
+Nothings more than puppetlabs-nodejs at the moment
 
-The very basic steps needed for a user to get the module up and running.
+#### PHP
+- If `manage_repo` is true, adds debsury PPA
+- Installs PHP 5 CLI, FPM
+- Installs the following extensions
+    - APCu
+    - intl
+    - cURL
+    - mcrypt
+    - imagick
+    - PDO mysql
+    - PDO pgsql
+    - xsl
 
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+(Sufficient for Symfony 2)
+
+#### Python
+
+Nothings more than stankevich-python at the moment
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
+```puppet
+class { '::languages::java':
+    accept_license => true
+}
+
+class { '::languages::php':
+    manage_repo => true
+}
+
+class { '::languages::nodejs':
+    manage_repo => true
+}
+
+class { '::languages::python':
+}
+```
 
 ## Reference
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+As you can see in the section above, nothing special.
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+Only tested on Ubuntu 14.04
 
 ## Development
 
 Since your module is awesome, other users will want to play with it. Let them
 know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
