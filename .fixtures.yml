@@ -1,0 +1,32 @@
+fixtures:
+    forge_modules:
+        stdlib:
+            repo: "puppetlabs/stdlib"
+            ref: "4.5.0"
+        apt:
+            repo: "puppetlabs/apt"
+            ref: "1.7.0"
+        concat:
+            repo: "puppetlabs/concat"
+            ref: "1.1.2"
+        ruby:
+            repo: "puppetlabs/ruby"
+            ref: "0.4.0"
+        java:
+            repo: "puppetlabs/java"
+            ref: "1.2.0"
+        nodejs:
+            repo: "puppetlabs/nodejs"
+            ref: "0.7.1"
+        vcsrepo:
+            repo: "puppetlabs/vcsrepo"
+            ref: "1.2.0"
+        python:
+            repo: "stankevich/python"
+            ref: "1.8.2"
+    repositories:
+        php:
+            repo: "git@github.com:jippi/puppet-php.git"
+            ref: "e8e440bbb2a15a9127962c43fc76ba7b858d1c76"
+    symlinks:
+        languages: "#{source_dir}"
