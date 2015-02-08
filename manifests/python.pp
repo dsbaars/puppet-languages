@@ -26,4 +26,8 @@ class languages::python (
         virtualenv => true,
         gunicorn   => false,
     }
+
+    $pkgs = ['libxml2-dev', 'libxslt1-dev']
+
+    ensure_packages($pkgs)
 }
