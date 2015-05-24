@@ -15,8 +15,12 @@
 #
 # Copyright 2015 Djuri Baars
 #
+
 class languages::php (
-    $manage_repo = false
+    $manage_repo = false,
+    # You can set timezone with hiera using languages::php::timezone
+    # see https://docs.puppetlabs.com/hiera/1/puppet.html#automatic-parameter-lookup
+    $timezone = 'Europe/Amsterdam'
     ) {
     include 'php'
     include 'apt'
@@ -43,7 +47,7 @@ class languages::php (
         ]:
         ensure   => latest,
         settings => [
-            "set 'PHP/date.timezone' 'Europe/Amsterdam'"
+            "set 'PHP/date.timezone' '${timezone}'"
         ],
         require  => [
             Exec['apt_update']
@@ -59,6 +63,7 @@ class languages::php (
         '::php::extension::imagick',
         '::php::extension::mysql',
         '::php::extension::pgsql',
+        '::php::extension::gd',
         '::php::composer'
         ]:
     }
